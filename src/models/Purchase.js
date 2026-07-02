@@ -29,6 +29,12 @@ const purchaseSchema = new mongoose.Schema(
       required: true
     },
 
+    purchaseDate: {
+      type: Date,
+      required: true,
+      default: Date.now
+    },
+
     invoiceNumber: {
       type: String,
       default: ""
