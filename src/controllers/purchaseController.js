@@ -12,6 +12,7 @@ const createPurchase = async (req, res) => {
             supplier,
             quantity,
             purchasePrice,
+            purchaseDate,
             invoiceNumber,
             remarks
 
@@ -19,6 +20,17 @@ const createPurchase = async (req, res) => {
 
         const qty = Number(quantity);
         const price = Number(purchasePrice);
+        if (!purchaseDate) {
+
+            return res.status(400).json({
+
+                success: false,
+
+                message: "Purchase date is required."
+
+            });
+
+        }
 
         if (!product || !supplier) {
 
@@ -80,6 +92,8 @@ const createPurchase = async (req, res) => {
 
             purchasePrice: price,
 
+            purchaseDate,
+
             totalAmount: qty * price,
 
             invoiceNumber,
@@ -139,6 +153,8 @@ const getPurchases = async (req, res) => {
             .populate("supplier")
 
             .sort({
+
+                purchaseDate: -1,
 
                 createdAt: -1
 
@@ -245,6 +261,8 @@ const updatePurchase = async (req, res) => {
             quantity,
 
             purchasePrice,
+
+            purchaseDate,
 
             invoiceNumber,
 
@@ -379,6 +397,8 @@ const updatePurchase = async (req, res) => {
         purchase.quantity = newQty;
 
         purchase.purchasePrice = newPrice;
+
+        purchase.purchaseDate = purchaseDate;
 
         purchase.totalAmount = newQty * newPrice;
 
