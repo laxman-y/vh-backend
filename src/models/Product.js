@@ -26,11 +26,11 @@ const productSchema = new mongoose.Schema(
       ref: "Brand"
     },
 
-    sku: {
-      type: String,
-      required: true,
-      unique: true
-    },
+    // sku: {
+    //   type: String,
+    //   required: true,
+    //   unique: true
+    // },
 
     description: {
       type: String,
