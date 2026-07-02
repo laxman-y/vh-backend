@@ -7,19 +7,37 @@ const createProduct = async (req, res) => {
   try {
 
     const {
+
       name,
+
       category,
+
       brand,
-      sku,
+
       description,
+
       purchasePrice,
+
       sellingPrice,
+
       stock,
+
       lowStockAlert,
+
       gst,
+
       warranty,
+
+      unit,
+
+      barcode,
+
+      featured,
+
       status,
+
       images
+
     } = req.body;
 
     console.log("\n========== CREATE PRODUCT ==========");
@@ -32,7 +50,7 @@ const createProduct = async (req, res) => {
     if (
       !name ||
       !category ||
-      !sku ||
+      // !sku ||
       !purchasePrice ||
       !sellingPrice
     ) {
@@ -56,24 +74,24 @@ const createProduct = async (req, res) => {
 
     }
 
-    const skuExists =
-      await Product.findOne({ sku });
+    // const skuExists =
+    //   await Product.findOne({ sku });
 
-    if (skuExists) {
+    // if (skuExists) {
 
-      return res.status(400).json({
-        success: false,
-        message: "SKU already exists"
-      });
+    //   return res.status(400).json({
+    //     success: false,
+    //     message: "SKU already exists"
+    //   });
 
-    }
+    // }
 
     const product = await Product.create({
 
       name,
       category,
       brand,
-      sku,
+      // sku,
       description,
 
       purchasePrice,
@@ -86,6 +104,12 @@ const createProduct = async (req, res) => {
       warranty,
 
       status,
+
+      unit,
+
+      barcode,
+
+      featured,
 
       images: images || []
 
@@ -128,11 +152,11 @@ const getProducts = async (req, res) => {
 
     const keyword = req.query.keyword
       ? {
-          name: {
-            $regex: req.query.keyword,
-            $options: "i"
-          }
+        name: {
+          $regex: req.query.keyword,
+          $options: "i"
         }
+      }
       : {};
 
     const category = req.query.category
@@ -212,10 +236,86 @@ const updateProduct = async (req, res) => {
 
   try {
 
+    const {
+
+      name,
+
+      category,
+
+      brand,
+
+      description,
+
+      purchasePrice,
+
+      sellingPrice,
+
+      stock,
+
+      lowStockAlert,
+
+      gst,
+
+      warranty,
+
+      unit,
+
+      barcode,
+
+      featured,
+
+      status,
+
+      images
+
+    } = req.body;
+
     const product = await Product.findByIdAndUpdate(
+
       req.params.id,
-      req.body,
-      { new: true }
+
+      {
+
+        name,
+
+        category,
+
+        brand,
+
+        description,
+
+        purchasePrice,
+
+        sellingPrice,
+
+        stock,
+
+        lowStockAlert,
+
+        gst,
+
+        warranty,
+
+        unit,
+
+        barcode,
+
+        featured,
+
+        status,
+
+        images
+
+      },
+
+      {
+
+        new: true,
+
+        runValidators: true
+
+      }
+
     );
 
     res.json({
