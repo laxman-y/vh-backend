@@ -130,6 +130,11 @@ const saleSchema = new mongoose.Schema(
 
     },
 
+    saleDate: {
+      type: Date,
+      default: Date.now
+    },
+
     remarks: {
 
       type: String,
