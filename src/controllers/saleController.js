@@ -26,6 +26,8 @@ const createSale = async (req, res) => {
 
             invoiceNumber,
 
+            saleDate,
+
             remarks
 
         } = req.body;
@@ -157,6 +159,8 @@ const createSale = async (req, res) => {
             paymentStatus,
 
             invoiceNumber,
+
+            saleDate: saleDate || new Date(),
 
             remarks
 
@@ -321,6 +325,7 @@ const updateSale = async (req, res) => {
             paymentMethod,
             paymentStatus,
             invoiceNumber,
+            saleDate,
             remarks
 
         } = req.body;
@@ -531,6 +536,8 @@ const updateSale = async (req, res) => {
         sale.paymentStatus = paymentStatus;
 
         sale.invoiceNumber = invoiceNumber;
+
+        sale.saleDate = saleDate;
 
         sale.remarks = remarks;
 
